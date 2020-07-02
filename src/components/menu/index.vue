@@ -67,7 +67,7 @@ import menuList from '../../util/menuList'
     #menu {
         display: flex;
         height: 100vh;
-        min-height: 500px;
+        min-height: 100%;
         flex-direction: column;
 
         .header {

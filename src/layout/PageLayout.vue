@@ -52,6 +52,7 @@ export default {
     }
     .router{
         margin:10px 10px 10px 10px;
+        visibility: auto;
     }
 }
 
