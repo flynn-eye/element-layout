@@ -20,10 +20,24 @@ import {
   DropdownMenu,
   DropdownItem,
   Card,
-  Tag
+  Tag,
+  Dialog,
+  Table,
+  TableColumn,
+  Pagination,
+  Loading,
+  Select,
+  Option,
 } from 'element-ui';
 import VuePageTransition from 'vue-page-transition'
 
+Vue.use(Option)
+Vue.use(Select)
+Vue.use(Loading.directive)
+Vue.use(Pagination)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Dialog)
 Vue.use(VuePageTransition)
 Vue.config.productionTip = false
 Vue.use(Button)
