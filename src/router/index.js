@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'
 Vue.use(VueRouter)
 NProgress.configure({ showSpinner: false })
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

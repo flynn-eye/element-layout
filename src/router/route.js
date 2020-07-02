@@ -20,25 +20,25 @@ const routes = [
     component: () => import('../layout/PageLayout.vue'),
     children:[
       {
-        name: 'first',
-        component: () => import('../views/pages/first.vue'),
-        path: 'first',
+        name: 'ProjectManager',
+        component: () => import('../views/pages/ProjectManager.vue'),
+        path: 'projectManager',
         meta:{
           isMenu:true
         }
       },
       {
-        name: 'second',
-        component: () => import('../views/pages/second.vue'),
-        path: 'second',
+        name: 'RankManager',
+        component: () => import('../views/pages/RankManager.vue'),
+        path: 'rankManager',
         meta:{
           isMenu:true
         }
       },
       {
-        name: 'third',
-        component: () => import('../views/pages/third.vue'),
-        path: 'third',
+        name: 'DepartmentManager',
+        component: () => import('../views/pages/DepartmentManager.vue'),
+        path: 'departmentManager',
         meta:{
           isMenu:true
         }

@@ -1,44 +1,57 @@
+import {
+    post
+} from '../util/http'
 const commonStore = {
     namespaced: true,
     state: {
-        tagsConfig:[],
-        name:'213'
+        tagsConfig: [],
     },
     mutations: {
-        ADD_tagsConfig(state,payload){
+        ADD_tagsConfig(state, payload) {
             this.commit('commonStore/Update_tagsConfig')
-            if(state.tagsConfig.length===0){
+            if (state.tagsConfig.length === 0) {
                 payload['effect'] = 'dark'
                 state.tagsConfig.push(payload)
-            }else{
-                if(state.tagsConfig.every((index)=>index.key!==payload.key)){
+            } else {
+                if (state.tagsConfig.every((index) => index.key !== payload.key)) {
                     payload['effect'] = 'dark'
                     state.tagsConfig.push(payload)
-                }else{
-                    for(let i in state.tagsConfig){
-                        if(state.tagsConfig[i].key===payload.key){
+                } else {
+                    for (let i in state.tagsConfig) {
+                        if (state.tagsConfig[i].key === payload.key) {
                             state.tagsConfig[i]['effect'] = 'dark'
                         }
                     }
                 }
             }
-            
+
         },
-        Del_tagsConfig(state,payload){
-            state.tagsConfig.splice(payload,1)
+        Del_tagsConfig(state, payload) {
+            state.tagsConfig.splice(payload, 1)
         },
-        Update_tagsConfig(state,payload){
-            for(let i in state.tagsConfig){
+        Update_tagsConfig(state, payload) {
+            for (let i in state.tagsConfig) {
                 state.tagsConfig[i].effect = 'light'
             }
-            if(typeof payload === 'number'){
+            if (typeof payload === 'number') {
                 state.tagsConfig[payload].effect = 'dark'
             }
         }
     },
     actions: {
-    },
-    modules: {
+        login({commit},payload) {
+            return new Promise((resolved, rejected) => {
+                post('/emp/login', {
+                    
+                }, {
+                    ...payload
+                }).then(res => {
+                    resolved(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+            })
+        }
     }
 }
 export default commonStore
