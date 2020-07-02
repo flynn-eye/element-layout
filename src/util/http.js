@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: 'http://172.22.75.141:8088/', // url = base url + request url
+  //baseURL: 'http://192.168.43.106:8099/', // url = base url + request url
+  baseURL: 'http://192.168.43.59:8088/',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
 });
@@ -66,13 +67,15 @@ export function post(url, data, params, headers) {
   }
   return service.post(url, data, options);
 }
-export function put(url, params, headers) {
+export function put(url,data, params, headers) {
   const options = {};
-
+  if (params) {
+    options.params = params;
+  }
   if (headers) {
     options.headers = headers;
   }
-  return service.put(url, params, options);
+  return service.put(url, data, options);
 }
 export function del(url, params, headers) {
   const options = {};

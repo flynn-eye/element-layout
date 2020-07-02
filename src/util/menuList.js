@@ -4,18 +4,18 @@ const menuList = [
         key: '1',
         icon:'el-icon-location',
         children: [{
-                name: 'first',
-                path: '/pageLayout/first',
+                name: '项目管理',
+                path: '/pageLayout/projectManager',
                 key: '1-1'
             },
             {
-                name: 'second',
-                path: '/pageLayout/second',
+                name: '职级管理',
+                path: '/pageLayout/rankManager',
                 key: '1-2'
             },
             {
-                name: 'third',
-                path: '/pageLayout/third',
+                name: '部门管理',
+                path: '/pageLayout/departmentManager',
                 key: '1-3'
             }
         ]
