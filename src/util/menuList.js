@@ -17,6 +17,11 @@ const menuList = [
                 name: '部门管理',
                 path: '/pageLayout/departmentManager',
                 key: '1-3'
+            },
+            {
+                name: '员工管理',
+                path: '/pageLayout/staffManager',
+                key: '1-4'
             }
         ]
         

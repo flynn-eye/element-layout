@@ -20,7 +20,7 @@ const rankManager = {
                     })
             })
         },
-        addRank({commit},payLoad){
+        addRank({commit},payLoad){ //更新&添加，传id时更新
             return new Promise((resolved,rejected)=>{
                 post('/rank/insert',{},{...payLoad})
                     .then(res=>{

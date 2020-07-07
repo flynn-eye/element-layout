@@ -67,7 +67,7 @@ export function post(url, data, params, headers) {
   }
   return service.post(url, data, options);
 }
-export function put(url,data, params, headers) {
+export function put(url, data, params, headers) {
   const options = {};
   if (params) {
     options.params = params;
