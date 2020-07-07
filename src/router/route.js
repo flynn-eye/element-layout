@@ -42,6 +42,14 @@ const routes = [
         meta:{
           isMenu:true
         }
+      },
+      {
+        name: 'StaffManager',
+        component: () => import('../views/pages/StaffManager.vue'),
+        path: 'staffManager',
+        meta:{
+          isMenu:true
+        }
       }
     ]
   }

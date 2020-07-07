@@ -12,6 +12,15 @@ const departmentManager = {
     mutations: {
     },
     actions: {
+        departmentListWithoutPage({commit},payLoad){
+            return new Promise((resolved,rejected)=>{
+                get('/dept/depts').then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
+        },
         departmentList({commit},payLoad){
             return new Promise((resolved,rejected)=>{
                 post('/dept/deptsByForms',{},{...payLoad}).then(res=>{

@@ -28,9 +28,13 @@ import {
   Loading,
   Select,
   Option,
+  Divider ,
+  Autocomplete
 } from 'element-ui';
 import VuePageTransition from 'vue-page-transition'
 
+Vue.use(Autocomplete)
+Vue.use(Divider)
 Vue.use(Option)
 Vue.use(Select)
 Vue.use(Loading.directive)
