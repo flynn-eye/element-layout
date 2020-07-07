@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const service = axios.create({
   //baseURL: 'http://192.168.43.106:8099/', // url = base url + request url
-  baseURL: 'http://192.168.43.59:8088/',
+  baseURL: 'http://192.168.43.106:8099/',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
 });

@@ -29,10 +29,14 @@ import {
   Select,
   Option,
   Divider ,
-  Autocomplete
+  Autocomplete,
+  Breadcrumb,
+  BreadcrumbItem
 } from 'element-ui';
 import VuePageTransition from 'vue-page-transition'
 
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
 Vue.use(Autocomplete)
 Vue.use(Divider)
 Vue.use(Option)

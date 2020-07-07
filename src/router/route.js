@@ -44,12 +44,19 @@ const routes = [
         }
       },
       {
-        name: 'StaffManager',
-        component: () => import('../views/pages/StaffManager.vue'),
-        path: 'staffManager',
+        name: 'StaffLayout',
+        component: () => import('../views/pages/Staff/StaffLayout.vue'),
+        path: 'StaffLayout',
         meta:{
           isMenu:true
-        }
+        },
+        children:[
+          {
+            name: 'StaffManager',
+            component: () => import('../views/pages/StaffManager.vue'),
+            path: 'StaffManager',
+          }
+        ]
       }
     ]
   }

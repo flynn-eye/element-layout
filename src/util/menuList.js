@@ -20,7 +20,7 @@ const menuList = [
             },
             {
                 name: '员工管理',
-                path: '/pageLayout/staffManager',
+                path: '/pageLayout/StaffLayout/staffManager',
                 key: '1-4'
             }
         ]
