@@ -53,7 +53,7 @@ const routes = [
         children:[
           {
             name: 'StaffManager',
-            component: () => import('../views/pages/StaffManager.vue'),
+            component: () => import('../views/pages/Staff/StaffManager.vue'),
             path: 'StaffManager',
           }
         ]

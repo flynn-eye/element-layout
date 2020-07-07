@@ -1,25 +1,37 @@
-3wsr  op k    =-04365reesrtemplate>
+<template>
     <div>
-        <el-breadcrumb separator="/">
-  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-  <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-  <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-  <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-</el-breadcrumb>
+        <div class="breadcrumb">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/' }">员工管理
+                </el-breadcrumb-item>
+                <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <vue-page-transition name="fade-in-right">
-            <router-view/>
+            <router-view />
         </vue-page-transition>
     </div>
 </template>
 
 <script>
-export default {
-    name: 'StaffLayout',
-    mounted(){
+    export default {
+        name: 'StaffLayout',
+        mounted() {},
+        data() {
+            return {}
+        }
     }
-}
 </script>
 
 <style lang='scss'>
-
+    .breadcrumb {
+        background-color: #FFFFFF;
+        margin-top: -10px;
+        margin-left: -10px;
+        ;
+        width: 100vw;
+        padding: 10px;
+        border-top: 1px solid #E9EBEE;
+        margin-bottom: 10px;
+    }
 </style>
