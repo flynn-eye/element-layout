@@ -7,7 +7,8 @@ import {
 const departmentManager = {
     namespaced: true,
     state: {
-        tagsConfig: [],
+        tagsConfig: [],//?
+        location:null,//breadcrumb
     },
     mutations: {
     },

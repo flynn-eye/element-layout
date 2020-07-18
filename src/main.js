@@ -31,10 +31,26 @@ import {
   Divider ,
   Autocomplete,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
+  Tree,
+  DatePicker,
+  Avatar,
+  Step,
+  Steps,
+  RadioGroup,
+  Radio
 } from 'element-ui';
 import VuePageTransition from 'vue-page-transition'
+import VCharts from 'v-charts'
+Vue.use(VCharts)
 
+Vue.use(RadioGroup)
+Vue.use(Radio)
+Vue.use(Step)
+Vue.use(Steps)
+Vue.use(Avatar)
+Vue.use(DatePicker)
+Vue.use(Tree)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Autocomplete)

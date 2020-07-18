@@ -4,6 +4,7 @@ import commonStore from './commonStore'
 import rankManager from './rankManager'
 import departmentManager from './departmentManager'
 import staffManager from './staffManager'
+import projectManager from './projectManager'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     rankManager,
     departmentManager,
     staffManager,
+    projectManager,
   }
 })
