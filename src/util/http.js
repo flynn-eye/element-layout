@@ -3,6 +3,7 @@ import axios from 'axios';
 const service = axios.create({
   //baseURL: 'http://192.168.43.106:8099/', // url = base url + request url
   baseURL: 'http://192.168.43.59:8088/',
+  //baseURL: 'http://localhost:8088/',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
 });
@@ -22,6 +23,9 @@ export function removeToken() { //
 service.interceptors.request.use(
   (config) => {
     // 不传递默认开启loading
+    config['headers'] = {
+      token: localStorage.getItem('token')
+    }
     if (config.method === 'post' || config.method === 'put') {
       // post、put 提交时，将对象转换为string, 为处理Java后台解析问题
       // config.data = JSON.stringify(config.data)
@@ -36,10 +40,12 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   (response) => {
-    const res = response.data;
-    if (res.status && res.status !== 200) {
+    if (response.headers['token'])
+      localStorage.setItem('token', response.headers['token'])
+    if (response.status && (response.status <200||response.status>299)) {
       return Promise.reject(res || 'error');
     }
+    const res = response.data;
     return Promise.resolve(res);
   },
   (error) => Promise.reject(error),

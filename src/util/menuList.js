@@ -1,12 +1,13 @@
 const menuList = [
     {
-        name: '一级导航菜单',
+        name: '加班系统',
         key: '1',
-        icon:'el-icon-location',
+        icon:'el-icon-s-help',
         children: [{
                 name: '项目管理',
                 path: '/pageLayout/projectManager',
-                key: '1-1'
+                key: '1-1',
+                icon:'el-icon-s-help',
             },
             {
                 name: '职级管理',
@@ -15,7 +16,7 @@ const menuList = [
             },
             {
                 name: '部门管理',
-                path: '/pageLayout/departmentManager',
+                path: '/pageLayout/DepartmentLayout/departmentManager',
                 key: '1-3'
             },
             {
@@ -25,6 +26,11 @@ const menuList = [
             }
         ]
         
+    },
+    {
+        name: '系统设置',
+        key: '2',
+        icon:'el-icon-s-tools'
     }
 ]
 export default menuList
