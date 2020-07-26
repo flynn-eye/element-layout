@@ -27,6 +27,12 @@
         <el-button size="small" @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
+      <el-button
+          size="small"
+          type="success"
+        >
+          <a href="http://192.168.43.59:8080/overtime/exportOvertimes" style="color:white">下载所有加班信息</a>
+          </el-button>
     <el-table v-loading="tableLoading" :data="dataSource">
       <el-table-column type="index"></el-table-column>
       <el-table-column label prop="employee.empName"></el-table-column>
