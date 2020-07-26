@@ -1,7 +1,8 @@
 import {
     get,
     post,
-    del
+    del,
+    put
 } from '../util/http'
 const rankManager = {
     namespaced: true,
@@ -75,6 +76,20 @@ const rankManager = {
                             console.log(err)
                         })
                 })
+        },
+
+        updateRankLeader({
+            commit
+        }, payLoad) {
+            return new Promise((resolved, rejected) => {
+                put('/rank/updateRankLeader',{},payLoad)
+                    .then(res => {
+                        resolved(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+            })
+
         }
     }
 }

@@ -99,9 +99,8 @@ export default {
   name: "StaffDetail",
   components: {},
   mounted() {
-    var colors = ["#ededed", "#f5dfa1", "#f1d37c", "#edc757"];
+    var colors = ["#ededed", "#ADE0FF", "#2F9CFF", "#5FB6FF"];
     function getVirtulData(year, info) {
-      console.log(info);
       let dateTime = new Date();
       let m = dateTime.getMonth() + 1;
       let d = dateTime.getDate() + 1;
@@ -179,7 +178,7 @@ export default {
       ]
     };
     this.$store
-      .dispatch("staffManager/getStaffHeat", this.staffDetail.empNo)
+      .dispatch("staffManager/getStaffHeat", {empNo:this.staffDetail.empNo})
       .then(res => {
         if (res.code === "200") {
           this.SETstaffHeat(res.data);
@@ -189,21 +188,24 @@ export default {
           mycharts.setOption(option);
         }
       });
-      this.$store.dispatch('staffManager/getStaffPie',this.staffDetail.empNo)
+      this.$store.dispatch('staffManager/getStaffPie',{empNo:this.staffDetail.empNo})
       .then(res=>{
         if(res.code==='200'){
-          console.log(res.data)
           for(let i= 0;i<res.data.length;i++){
+            console.log(res.data[i])
             this.$set(this.chartData.rows,i,res.data[i])
           }
+          //this.chartData.rows = res.data[i]
+          
         }
       })
-    this.projectPaginationConfig.total = this.staffProject.length;
-    this.projectPaginationConfig.pageSize = 9;
+    
     this.$store
       .dispatch("projectManager/getStaffProject", this.staffDetail.empNo)
       .then(res => {
         this.SETstaffProject(res.data);
+        this.projectPaginationConfig.total = this.staffProject.length;
+    this.projectPaginationConfig.pageSize = 9;
         this.projectDataSource = this.staffProject.slice(0, 9);
       });
     this.$store
@@ -241,9 +243,8 @@ export default {
         pageSize: 0
       },
       chartData: {
-        columns: ["项目", "次数"],
+        columns: ["projectName","counts"],
         rows: [
-          { 项目: "1/1", 次数: 1393 },
         ]
       }
     };

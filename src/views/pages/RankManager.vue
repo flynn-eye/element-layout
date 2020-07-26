@@ -6,12 +6,13 @@
           <el-button
             type="primary"
             size="mini"
-            @click="()=>{dialogVisible = true;rankName = ''}"
+            @click="()=>{dialogVisible = true;rankName = '';role=''}"
           >添加职级</el-button>
           <el-table :data="dataSource" v-loading="tableLoading">
             <el-table-column type="index"></el-table-column>
             <el-table-column label="职级id" prop="rankId"></el-table-column>
             <el-table-column label="职级名称" prop="rankName"></el-table-column>
+            <el-table-column label="角色" prop="name"></el-table-column>
             <el-table-column label="操作" prop="del">
               <template slot-scope="scope">
                 <a @click="delRank(scope.row.rankId)" style="margin-right:10px">删除</a>
@@ -33,10 +34,11 @@
       </el-tabs>
     </el-card>
     <!-- 添加职级 -->
-    <el-dialog title="添加职级" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="添加职级" :visible.sync="dialogVisible" width="40%">
       <el-form>
-        <el-form-item>
+        <el-form-item label="职级名称：">
           <el-input
+            style="width:40%"
             prefix-icon="el-icon-data-analysis"
             type="text"
             v-model="rankName"
@@ -44,17 +46,28 @@
             placeholder="职级名称"
           ></el-input>
         </el-form-item>
+        <el-form-item label="角色名称：">
+            <el-select v-model="role" placeholder="选择职级">
+              <el-option
+                v-for="(item,key) in  selectOptions"
+                :key="key"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="()=>{dialogVisible = false;rankName = ''}">取 消</el-button>
+        <el-button @click="()=>{dialogVisible = false;role=''}">取 消</el-button>
         <el-button type="primary" @click="addRank">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 更新职级 -->
     <el-dialog title="更新职级" :visible.sync="updateFormVisible" width="30%">
       <el-form>
-        <el-form-item>
+        <el-form-item label="职级id：">
           <el-input
+          style="width:40%"
             disabled
             prefix-icon="el-icon-data-analysis"
             type="text"
@@ -63,8 +76,9 @@
             placeholder="职级id"
           ></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item label="职级名称：">
           <el-input
+          style="width:40%"
             prefix-icon="el-icon-data-analysis"
             type="text"
             v-model="updateForm.rankName"
@@ -72,6 +86,16 @@
             placeholder="职级名称"
           ></el-input>
         </el-form-item>
+        <el-form-item label="角色名称：">
+            <el-select v-model="updateForm.name" placeholder="选择职级">
+              <el-option
+                v-for="(item,key) in  selectOptions"
+                :key="key"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="()=>{updateFormVisible = false;}">取 消</el-button>
@@ -109,7 +133,8 @@ export default {
     restUpdateForm() {
       this.updateForm = {
         rankName: "",
-        rankId: ""
+        rankId: "",
+        name:''
       };
     },
     updateRank(row) {
@@ -150,10 +175,11 @@ export default {
         payLoad = {
           rankName: draggingNode.data.label,
           rankId: draggingNode.data.value,
-          leaderRankId: dropNode.data.parent
+          leaderRankId: dropNode.data.parent===null?'':dropNode.data.parent
         };
       }
-      this.$store.dispatch("rankManager/addRank", payLoad).then(res => {
+      console.log(payLoad)
+      this.$store.dispatch("rankManager/updateRankLeader", payLoad).then(res => {
         if (res.code === "200") {
           Message({
             message: res.message,
@@ -186,7 +212,8 @@ export default {
     addRank() {
       this.$store
         .dispatch("rankManager/addRank", {
-          rankName: this.rankName
+          rankName: this.rankName,
+          name:this.role
         })
         .then(res => {
           this.rankName = "";
@@ -210,7 +237,7 @@ export default {
       this.$store
         .dispatch("rankManager/getChildRank", node.data.value)
         .then(res => {
-          if (res.code === "200") {
+          if (res) {
             let data = res.data;
             let result = [];
             for (let item of data) {
@@ -233,10 +260,34 @@ export default {
     return {
       activeName: "first",
       updateFormVisible: false,
+      role:'',
       updateForm: {
         rankName: "",
-        rankId: ""
+        rankId: "",
+        name:''
       },
+      selectOptions:[
+        {
+          value:'ROLE_employee',
+          label:'ROLE_employee'
+        },
+        {
+          value:'ROLE_group',
+          label:'ROLE_group'
+        },
+        {
+          value:'ROLE_section',
+          label:'ROLE_section'
+        },
+        {
+          value:'ROLE_minister',
+          label:'ROLE_minister'
+        },
+        {
+          value:'ROLE_admin',
+          label:'ROLE_admin'
+        }
+      ],
       rankName: "",
       dialogVisible: false,
       tableLoading: false,

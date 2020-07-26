@@ -38,12 +38,15 @@ import {
   Step,
   Steps,
   RadioGroup,
-  Radio
+  Radio,
+  CheckboxGroup,
 } from 'element-ui';
 import VuePageTransition from 'vue-page-transition'
 import VCharts from 'v-charts'
 Vue.use(VCharts)
 
+
+Vue.use(CheckboxGroup)
 Vue.use(RadioGroup)
 Vue.use(Radio)
 Vue.use(Step)

@@ -44,16 +44,19 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-dropdown>
+            <a @click="getDetail(scope)">查看</a>
+            <!-- <el-dropdown>
               <span>
                 操作
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>
+                  <span @click="getDetail(scope)">查看</span>
+                </el-dropdown-item>
                 <el-dropdown-item>更改</el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
           </template>
         </el-table-column>
       </el-table>
@@ -73,6 +76,7 @@
 
 <script>
 import { Message } from "element-ui";
+import { mapMutations } from "vuex";
 export default {
   name: "ProjectManager",
   mounted() {
@@ -96,6 +100,13 @@ export default {
     };
   },
   methods: {
+    getDetail(scope) {
+      this.$store.commit("projectManager/SETlocation", {
+        name: "项目详情"
+      }),
+       this.$store.commit("projectManager/SETprojectDetail", scope.row),
+        this.$router.push("/pageLayout/projectLayout/projectDetail");
+    },
     rest() {
       this.queryForm = {
         page: 1, //页码

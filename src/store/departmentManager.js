@@ -9,8 +9,15 @@ const departmentManager = {
     state: {
         tagsConfig: [],//?
         location:null,//breadcrumb
+        detailData:null
     },
     mutations: {
+        SETlocation(state,payLoad){
+            state.location = payLoad
+        },
+        SETdetailData(state,payLoad){
+            state.detailData = payLoad
+        },
     },
     actions: {
         departmentListWithoutPage({commit},payLoad){
@@ -61,7 +68,35 @@ const departmentManager = {
                     console.log(err)
                 })
             })
-        }
+        },
+        getMinisterByDeptCode({commit},payLoad){
+            let path = '/dept/getMinisterByDeptCode/'+payLoad
+            return new Promise((resolved,rejected)=>{
+                get(path).then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
+        },
+        getDeptHeat({commit},payLoad){
+            return new Promise((resolved,rejected)=>{
+                get('/overtime/listDeptChart',{...payLoad}).then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
+        },
+         listDeptDownProjectChart({commit},payLoad){
+            return new Promise((resolved,rejected)=>{
+                get('/overtime/listDeptDownProjectChart',{...payLoad}).then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
+         }
     }
 }
 export default departmentManager

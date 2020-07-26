@@ -27,7 +27,7 @@
               <el-form-item>
                 <div class="formAuto">
                   <el-checkbox v-model="autoLogin">自动登录</el-checkbox>
-                  <a href="javascript:void(0);">忘记密码</a>
+                  <!-- <a href="javascript:void(0);">忘记密码</a> -->
                 </div>
               </el-form-item>
               <el-form-item>
@@ -35,7 +35,7 @@
               </el-form-item>
               <el-form-item>
                 <div class="formBottom">
-                  <a href="javascript:void(0);">注册账户</a>
+                  <!-- <a href="javascript:void(0);">注册账户</a> -->
                 </div>
               </el-form-item>
             </el-form>
@@ -131,7 +131,10 @@ export default {
             localStorage.setItem("rankId", res.data.rankId);
             localStorage.setItem("leader", res.data.leader);
             localStorage.setItem("deptCode", res.data.deptCode);
-            this.$router.push("/pageLayout/projectManager");
+            this.$store.dispatch("commonStore/getPermission").then(res => {
+                this.$router.push("/pageLayout/projectLayout/projectManager");
+            
+            });
           } else {
             this.dialogVisible = true;
             this.passwordForm = {
@@ -139,11 +142,27 @@ export default {
               password: ""
             };
           }
+        }).catch(err=>{
+           this.dialogVisible = true;
+            this.passwordForm = {
+              userName: "",
+              password: ""
+            };
         });
     },
     handleClick(val) {
       //handle panechange
     },
+    // handleRouter(router){
+    //   if(router['component']){
+    //     let path = '../'+router['component']
+    //     router['component'] = ()=>{return ()=> import(path)}
+    //   }
+    //   if(router['children'])
+    //   for(let i = 0;i<router['children'].length;i++){
+    //     this.handleRouter(router['children'][i])
+    //   }
+    // },
     getCode() {
       this.isLoading = true;
       this.isDisable = true;

@@ -1,14 +1,13 @@
 <template>
   <div id="navbar">
     <i :class="collapseIcon" style="font-size:2rem;line-height:50px" @click="collapseClick"></i>
-    <el-dropdown style="margin-right:30px;line-height:50px">
+    <el-dropdown style="margin-right:30px;line-height:50px" @command="exit">
       <span>
         <img src="../../assets/bigUserHeader.png" class="userHeader" alt />
         <span style="white-space:nowrap;">系统管理员</span>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>修改密码</el-dropdown-item>
-        <el-dropdown-item>退出</el-dropdown-item>
+        <el-dropdown-item command="exit">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -35,6 +34,14 @@ export default {
         return "el-icon-s-unfold";
       } else {
         return "el-icon-s-fold";
+      }
+    }
+  },
+  methods: {
+    exit(value) {
+      if (value === "exit") {
+        localStorage.setItem("token", "");
+        this.$router.replace("/");
       }
     }
   }

@@ -200,9 +200,11 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("departmentManager", { SETlocation: "SETlocation",SETdetailData:"SETdetailData" }),
     showDetail(row){
+      this.SETlocation({name:'部门详情'})
+      this.SETdetailData(row)
       this.$router.push('/pageLayout/DepartmentLayout/departmentDetail')
-      console.log(row)
     },
     resetupdateDepartForm() {
       this.updateDepartForm = {

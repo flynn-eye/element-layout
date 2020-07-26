@@ -70,7 +70,7 @@
           size="small"
           type="success"
         >
-          <a href="http://192.168.43.59:8088/overtime/exportOvertimes" style="color:white">下载所有加班信息</a>
+          <a href="http://192.168.43.59:8080/overtime/exportOvertimes" style="color:white">下载所有加班信息</a>
           </el-button>
         <el-table
           :expand-row-keys="expand"
@@ -89,7 +89,7 @@
                     size="small"
                     type="primary"
                   >添加</el-button>
-                  <el-button @click="updateEmp(scope.row)" size="small" type="success">更新</el-button>
+                  <!-- <el-button @click="updateEmp(scope.row)" size="small" type="success">更新</el-button> -->
                   <el-button @click="delEmp(scope.row)" size="small" type="danger">删除</el-button>
                   <el-button @click="overTimeDetail(scope.row)" size="small" type="warning">员工详情</el-button>
                 </el-form-item>
@@ -195,7 +195,7 @@ export default {
       this.selectOption = res.data.ranks;
     });
     this.$store
-      .dispatch("departmentManager/departmentListWithoutPage")
+      .dispatch("staffManager/departmentListWithoutPage")
       .then(res => {
         setTimeout(() => {
           this.department = res.data;
@@ -229,7 +229,7 @@ export default {
         visible: false
       },
       paginationConfig: {
-        currentPage: 1,
+        cupagirrentPage: 1,
         total: 0,
         pageSize: 0
       },
@@ -320,23 +320,23 @@ export default {
       }
     },
     updateEmp(row) {
-      // this.restDialogForm();
-      // this.dialogForm.deptCode = row.dept.deptCode;
-      // this.dialogForm.deptName = row.dept.deptName;
-      // if (row.rank.rankId !== 4) {
-      //   this.dialogForm.leaderName = row.parentEmployee.empName;
-      //   this.dialogForm.leader = row.parentEmployee.empNo;
-      // }
-      // this.dialogForm.empNo = row.empNo;
-      // this.dialogForm.empName = row.empName;
-      // this.dialogConfig.title = "更新员工";
-      // this.dialogConfig.mode = 3;
-      // this.dialogConfig.visible = true;
-      this.SETstaffDetail(row);
-      this.$store.commit("staffManager/SETlocation", {
-        name: "更新员工"
-      }),
-      this.$router.push('/pageLayout/StaffLayout/UpdateStaff')
+      this.restDialogForm();
+      this.dialogForm.deptCode = row.dept.deptCode;
+      this.dialogForm.deptName = row.dept.deptName;
+      if (row.rank.rankId !== 4) {
+        this.dialogForm.leaderName = row.parentEmployee.empName;
+        this.dialogForm.leader = row.parentEmployee.empNo;
+      }
+      this.dialogForm.empNo = row.empNo;
+      this.dialogForm.empName = row.empName;
+      this.dialogConfig.title = "更新员工";
+      this.dialogConfig.mode = 3;
+      this.dialogConfig.visible = true;
+      // this.SETstaffDetail(row);
+      // this.$store.commit("staffManager/SETlocation", {
+      //   name: "更新员工"
+      // }),
+      // this.$router.push('/pageLayout/StaffLayout/UpdateStaff')
     },
     delEmp(row) {
       this.$store.dispatch("staffManager/delStaff", row.empNo).then(res => {

@@ -92,6 +92,24 @@ const staffManager = {
                     console.log(err)
                 })
             })
+        },
+        departmentListWithoutPage({commit},payLoad){
+            return new Promise((resolved,rejected)=>{
+                get('/emp/depts').then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
+        },
+        getOvertimeWithPage({commit},payLoad){
+            return new Promise((resolved,rejected)=>{
+                get('/overtime/overtimesByForms',payLoad).then(res=>{
+                    resolved(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            })
         }
     }
 }

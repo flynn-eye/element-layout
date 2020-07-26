@@ -17,13 +17,13 @@
       :collapse="isCollapse"
       :style="collapseWidth"
     >
-      <el-submenu :index="index.key" v-for="(index,key) in menu" :key="key">
+      <el-submenu :index="index.menuId+''" v-for="(index,key) in menu" :key="key">
         <template slot="title">
           <i :class="index.icon"></i>
           <span slot="title">{{index.name}}</span>
         </template>
         <div v-for="(i,k) in index.children" :key="k">
-          <el-menu-item @click="handleMenuClick(i)" :index="i.k">{{i.name}}</el-menu-item>
+          <el-menu-item @click="handleMenuClick(i)" :index="i.menuId+''">{{i.name}}</el-menu-item>
         </div>
       </el-submenu>
     </el-menu>
@@ -32,7 +32,7 @@
 
 <script>
 import menuList from "../../util/menuList";
-
+import {mapState} from 'vuex'
 export default {
   name: "Menu",
   props: {
@@ -43,10 +43,10 @@ export default {
   },
   data() {
     return {
-      menu: menuList
     };
   },
   computed: {
+    ...mapState('commonStore',{menu:state=>state.menuList}),
     collapseWidth() {
       if (this.isCollapse) {
         return {

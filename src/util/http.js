@@ -1,9 +1,10 @@
 import axios from 'axios';
-
+import { Message } from "element-ui";
+import router from '../router/index'
 const service = axios.create({
-  //baseURL: 'http://192.168.43.106:8099/', // url = base url + request url
-  baseURL: 'http://192.168.43.59:8088/',
-  //baseURL: 'http://localhost:8088/',
+  //baseURL: 'http://172.20.10.8:8083/', // url = base url + request url
+ baseURL: 'http://192.168.43.59:8080/',
+  //baseURL: 'http://192.168.43.190:8088/',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 5000, // request timeout
 });
@@ -48,7 +49,17 @@ service.interceptors.response.use(
     const res = response.data;
     return Promise.resolve(res);
   },
-  (error) => Promise.reject(error),
+  (error,res) => {
+    let errstr = error.toString()
+    let flag = errstr.slice(errstr.length-3,errstr.length)
+    if(flag==='403'){
+      router.replace('/403')
+    }
+    if(flag==='401'){
+      router.replace('/')
+    }
+    return Promise.reject(error)
+  },
 );
 // 对token进行处理
 export function get(url, params, headers) {

@@ -3,7 +3,7 @@
     <div class="breadcrumb">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <span @click="handle('/pageLayout/DepartmentLayout/departmentManager')">部门管理</span>
+          <span @click="handle('/pageLayout/projectLayout/projectManager')">项目管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item v-if="location">{{location.name}}</el-breadcrumb-item>
       </el-breadcrumb>
@@ -17,7 +17,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  name: "DepartmentLayout",
+  name: "ProjectLayout",
   methods: {
     handle(path) {
       if (this.$router.history.current.path !== path) {
@@ -25,12 +25,12 @@ export default {
         this.SETlocation(null);
       }
     },
-    ...mapMutations("departmentManager", { SETlocation: "SETlocation" })
+    ...mapMutations("projectManager", { SETlocation: "SETlocation" })
   },
   data() {
     return {};
   },
-  computed: mapState("departmentManager", { location: state => state.location })
+  computed: mapState("projectManager", { location: state => state.location })
 };
 </script>
 
