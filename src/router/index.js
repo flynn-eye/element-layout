@@ -15,37 +15,39 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (to.path !== '/userLayout/login'&&store.state.commonStore.routes.length===0&&to.path !== '/403') {
+  if (to.path !== '/userLayout/login' && store.state.commonStore.routes.length === 0 && to.path !== '/403') {
     store.dispatch('commonStore/getPermission')
       .then(res => {
         let temp = res.data["const routes"];
         for (let i = 0; i < temp.length; i++) {
           handleRouter(temp[i])
         }
-        store.state.commonStore.routes=temp
+        store.state.commonStore.routes = temp
         router.addRoutes(store.state.commonStore.routes)
         store.state.commonStore.menuList = res.data["const menuList"]
-        next({ ...to, replace: true })
-      }).catch(err=>{
+        next({
+          ...to,
+          replace: true
+        })
+      }).catch(err => {
         console.log(err)
       })
-  }else{
-  next()
+  } else {
+    next()
   }
-
-  
 })
 router.afterEach((to, from) => {
   NProgress.done()
 });
+
 function handleRouter(r) {
   if (r['component']) {
     let path = r['component']
-    path = path.replace('../','')
-    path = path.replace('.vue','')
-    r['component'] = 
-     resolve => require([`@/${path}.vue`], resolve);
-    
+    path = path.replace('../', '')
+    path = path.replace('.vue', '')
+    r['component'] =
+      resolve => require([`@/${path}.vue`], resolve);
+
   }
   if (r['children'])
     for (let i = 0; i < r['children'].length; i++) {

@@ -3,7 +3,7 @@ import { Message } from "element-ui";
 import router from '../router/index'
 const service = axios.create({
   //baseURL: 'http://172.20.10.8:8083/', // url = base url + request url
- baseURL: 'http://192.168.43.59:8080/',
+ baseURL: 'http://localhost:8081/',
   //baseURL: 'http://192.168.43.190:8088/',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 5000, // request timeout

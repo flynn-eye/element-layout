@@ -5,8 +5,8 @@
         <div class="title">加班管理系统</div>
         <el-tabs v-model="activeTag" @tab-click="handleClick">
           <el-tab-pane label="账户密码登录" name="loginByPassword">
-            <el-form label-position="left" :rules="rules">
-              <el-form-item>
+            <el-form ref="passwordForm" :model="passwordForm" label-position="left" :rules="rules">
+              <el-form-item prop="userName">
                 <el-input
                   prefix-icon="el-icon-user"
                   type="text"
@@ -15,7 +15,7 @@
                   placeholder="用户名"
                 ></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item prop="password">
                 <el-input
                   prefix-icon="el-icon-lock"
                   type="password"
@@ -98,71 +98,79 @@ export default {
         userName: [
           {
             required: true,
-            trigger: "blur"
-          }
-        ]
+            trigger: "blur",
+            message: "请输入用户名",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            trigger: "blur",
+            message: "请输入密码",
+          },
+        ],
       },
       activeTag: "loginByPassword",
       autoLogin: true,
       passwordForm: {
         userName: "",
-        password: ""
+        password: "",
       },
       phoneForm: {
         phone: "",
-        code: ""
+        code: "",
       },
       isLoading: false,
       isDisable: false,
-      getCodeButtonValue: "获取验证码"
+      getCodeButtonValue: "获取验证码",
     };
   },
   methods: {
     passwordLogin() {
-      this.$store
-        .dispatch("commonStore/login", {
-          username: this.passwordForm.userName,
-          password: this.passwordForm.password
-        })
-        .then(res => {
-          if (res.code === "200") {
-            localStorage.setItem("empNo", res.data.empNo);
-            localStorage.setItem("empName", res.data.empName);
-            localStorage.setItem("rankId", res.data.rankId);
-            localStorage.setItem("leader", res.data.leader);
-            localStorage.setItem("deptCode", res.data.deptCode);
-            this.$store.dispatch("commonStore/getPermission").then(res => {
-                this.$router.push("/pageLayout/projectLayout/projectManager");
-            
+      this.$refs.passwordForm.validate((valid) => {
+        if (valid) {
+          this.$store
+            .dispatch("commonStore/login", {
+              username: this.passwordForm.userName,
+              password: this.passwordForm.password,
+            })
+            .then((res) => {
+              if (res.code === "200") {
+                localStorage.setItem("empNo", res.data.empNo);
+                localStorage.setItem("empName", res.data.empName);
+                localStorage.setItem("rankId", res.data.rankId);
+                localStorage.setItem("leader", res.data.leader);
+                localStorage.setItem("deptCode", res.data.deptCode);
+                this.$store
+                  .dispatch("commonStore/getPermission")
+                  .then((res) => {
+                    this.$router.push(
+                      "/pageLayout/projectLayout/projectManager"
+                    );
+                  });
+              } else {
+                this.dialogVisible = true;
+                this.passwordForm = {
+                  userName: "",
+                  password: "",
+                };
+              }
+            })
+            .catch((err) => {
+              this.dialogVisible = true;
+              this.passwordForm = {
+                userName: "",
+                password: "",
+              };
             });
-          } else {
-            this.dialogVisible = true;
-            this.passwordForm = {
-              userName: "",
-              password: ""
-            };
-          }
-        }).catch(err=>{
-           this.dialogVisible = true;
-            this.passwordForm = {
-              userName: "",
-              password: ""
-            };
-        });
+        } else {
+          return false;
+        }
+      });
     },
     handleClick(val) {
       //handle panechange
     },
-    // handleRouter(router){
-    //   if(router['component']){
-    //     let path = '../'+router['component']
-    //     router['component'] = ()=>{return ()=> import(path)}
-    //   }
-    //   if(router['children'])
-    //   for(let i = 0;i<router['children'].length;i++){
-    //     this.handleRouter(router['children'][i])
-    //   }
-    // },
     getCode() {
       this.isLoading = true;
       this.isDisable = true;
@@ -178,8 +186,8 @@ export default {
         this.getCodeButtonValue = "获取验证码";
         clearInterval(task);
       }, 60 * 1000);
-    }
-  }
+    },
+  },
 };
 </script>
 
